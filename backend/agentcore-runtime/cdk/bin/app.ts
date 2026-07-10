@@ -19,13 +19,13 @@ const env = {
 // Create Infrastructure Stack (ECR, CodeBuild, IAM roles, S3)
 const infraStack = new InfraStack(app, 'AgentCoreInfraStack', {
   env,
-  description: 'Infrastructure for AgentCore Runtime - ECR, CodeBuild, IAM roles, S3 bucket',
+  description: '(SO9692) Infrastructure for AgentCore Runtime - ECR, CodeBuild, IAM roles, S3 bucket',
 });
 
 // Create Runtime Stack
 const runtimeStack = new RuntimeStack(app, 'AgentCoreRuntimeStack', {
   env,
-  description: 'AgentCore Runtime deployment with WebSocket protocol and Cognito JWT auth',
+  description: '(SO9692) AgentCore Runtime deployment with WebSocket protocol and Cognito JWT auth',
   
   // Dependencies from InfraStack
   ecrRepository: infraStack.ecrRepository,

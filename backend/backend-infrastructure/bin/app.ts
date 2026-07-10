@@ -22,19 +22,19 @@ const env = {
 // Stack 1: DynamoDB - Data storage
 const dynamoDBStack = new DynamoDBStack(app, 'QSR-DynamoDBStack', {
   env,
-  description: 'DynamoDB tables for customers, orders, menu, carts, and locations',
+  description: '(SO9692) DynamoDB tables for customers, orders, menu, carts, and locations',
 });
 
 // Stack 2: Location Services - Geocoding and routing
 const locationStack = new LocationStack(app, 'QSR-LocationStack', {
   env,
-  description: 'AWS Location Services for geocoding and route calculation',
+  description: '(SO9692) AWS Location Services for geocoding and route calculation',
 });
 
 // Stack 3: Lambda - Business logic functions
 const lambdaStack = new LambdaStack(app, 'QSR-LambdaStack', {
   env,
-  description: 'Lambda functions for customer, menu, cart, order, and location operations',
+  description: '(SO9692) Lambda functions for customer, menu, cart, order, and location operations',
   tables: dynamoDBStack.tables,
   placeIndex: locationStack.placeIndex,
   routeCalculator: locationStack.routeCalculator,
@@ -43,7 +43,7 @@ const lambdaStack = new LambdaStack(app, 'QSR-LambdaStack', {
 // Stack 4: API Gateway - REST API endpoints (must be before Cognito to get ARN)
 const apiGatewayStack = new ApiGatewayStack(app, 'QSR-ApiGatewayStack', {
   env,
-  description: 'API Gateway REST API with Lambda integrations and AWS_IAM authorization',
+  description: '(SO9692) API Gateway REST API with Lambda integrations and AWS_IAM authorization',
   // Note: userPool is not needed anymore since we use AWS_IAM authorization
   userPool: undefined as any, // Temporary - will be removed in next iteration
   lambdaFunctions: lambdaStack.functions,
@@ -52,7 +52,7 @@ const apiGatewayStack = new ApiGatewayStack(app, 'QSR-ApiGatewayStack', {
 // Stack 5: Cognito - User authentication and authorization (after API Gateway to get ARN)
 const cognitoStack = new CognitoStack(app, 'QSR-CognitoStack', {
   env,
-  description: 'Cognito User Pool and Identity Pool for QSR ordering system',
+  description: '(SO9692) Cognito User Pool and Identity Pool for QSR ordering system',
   apiGatewayArn: `arn:aws:execute-api:${env.region}:${env.account}:${apiGatewayStack.api.restApiId}/*`,
 });
 
