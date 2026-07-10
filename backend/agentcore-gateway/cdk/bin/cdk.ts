@@ -14,6 +14,7 @@ if (!apiGatewayId) {
 new CdkStack(app, 'QSR-AgentCoreGatewayStack', {
   apiGatewayId,
   stage: 'prod',
+  description: '(SO9692) AgentCore Gateway (MCP) exposing QSR backend APIs as agent tools',
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION
